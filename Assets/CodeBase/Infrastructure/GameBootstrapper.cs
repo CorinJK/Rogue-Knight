@@ -2,7 +2,7 @@
 
 namespace CodeBase.Infrastructure
 {
-    public class GameBootstrapper : MonoBehaviour
+    public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
     {
         private Game _game;
 
@@ -10,6 +10,8 @@ namespace CodeBase.Infrastructure
         {
             // Контейнер для всей игры
             _game = new Game();
+            // Заставить BootstrapState быть точкой входа
+            _game.StateMachine.Enter<BootstrapState>();
 
             DontDestroyOnLoad(this);
         }

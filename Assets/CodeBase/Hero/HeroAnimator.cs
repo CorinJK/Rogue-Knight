@@ -27,7 +27,6 @@ namespace CodeBase.Hero
 
         private void Update()
         {
-
             // Переключить анимацию со стояния на ходьбу при присвоении CharacterController скорости движения
             // velocity.magnitude = вектор.длина; 0.1f сглаживание
             Animator.SetFloat(MoveHash, CharacterController.velocity.magnitude, 0.1f, Time.deltaTime);
