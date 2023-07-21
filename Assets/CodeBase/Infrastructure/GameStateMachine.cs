@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeBase.Logic;
+using System;
 using System.Collections.Generic;
 
 namespace CodeBase.Infrastructure
@@ -8,14 +9,15 @@ namespace CodeBase.Infrastructure
         private readonly Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState;
 
-        public GameStateMachine(SceneLoader sceneLoader)
+        public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain curtain)
         {
             // Конструктор: словарь с ключом Type и значением IState
             _states = new Dictionary<Type, IExitableState>
             {
                 //Зарегистрировали
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, curtain),
+                [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }
 
@@ -39,7 +41,8 @@ namespace CodeBase.Infrastructure
         }
 
         // Давнкаст as
-        private TState GetState<TState>() where TState : class, IExitableState => 
+        private TState GetState<TState>() where TState : class, IExitableState =>
             _states[typeof(TState)] as TState;
+
     }
 }
