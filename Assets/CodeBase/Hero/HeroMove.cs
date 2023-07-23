@@ -1,19 +1,20 @@
 ﻿using CodeBase;
-using CodeBase.Infrastructure;
+using CodeBase.Infrastructure.Services;
 using CodeBase.Services.Input;
 using UnityEngine;
 
 public class HeroMove : MonoBehaviour
 {
     [SerializeField] private float MovementSpeed = 4.0f;
+
     private CharacterController _characterController;
     private IInputService _input;
-    private Camera _camera;
 
     private void Awake()
     {
         // Получаем ссылку
-        _input = Game.InputService;
+        _input = AllServices.Container.Single<IInputService>();
+
         _characterController = GetComponent<CharacterController>();
     }
 

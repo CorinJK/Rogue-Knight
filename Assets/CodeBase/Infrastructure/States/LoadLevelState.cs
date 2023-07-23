@@ -1,8 +1,9 @@
 ﻿using CodeBase.CameraLogic;
 using CodeBase.Logic;
+using CodeBase.Infrastructure.Factory;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure
+namespace CodeBase.Infrastructure.States
 {
     internal class LoadLevelState : IPayloadedState<string>
     {
@@ -13,14 +14,14 @@ namespace CodeBase.Infrastructure
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _curtain;
         private readonly IGameFactory _gameFactory;
-        private Camera _camera;
 
         // Конструктор
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain)
+        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _curtain = curtain;
+            _gameFactory = gameFactory;
         }
 
         public void Enter(string sceneName)
@@ -50,8 +51,9 @@ namespace CodeBase.Infrastructure
         // Слежение камеры
         private void CameraFollow(GameObject hero)
         {
-            _camera = Camera.main;
-            _camera.GetComponent<CameraFollow>().Follow(hero);
+            Camera.main
+                .GetComponent<CameraFollow>()
+                .Follow(hero);
         }
     }
 }
