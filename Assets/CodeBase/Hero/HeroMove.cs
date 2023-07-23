@@ -1,9 +1,13 @@
 ﻿using CodeBase;
+using CodeBase.Data;
 using CodeBase.Infrastructure.Services;
-using CodeBase.Services.Input;
+using CodeBase.Infrastructure.Services.Input;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class HeroMove : MonoBehaviour
+[RequireComponent(typeof(CharacterController))]
+public class HeroMove : MonoBehaviour, ISavedProgressReader
 {
     [SerializeField] private float MovementSpeed = 4.0f;
 
@@ -41,4 +45,32 @@ public class HeroMove : MonoBehaviour
         // Само перемещение
         _characterController.Move(MovementSpeed * movementVector * Time.deltaTime);
     }
+
+    // Запись в прогресс
+    public void UpdateProgress(PlayerProgress progress) =>
+        progress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
+
+    // Загрузка прогресса
+    public void LoadProgress(PlayerProgress progress)
+    {
+        // Если совпал уровень, на котором ходим загрузиться
+        if (CurrentLevel() == progress.WorldData.PositionOnLevel.Level)
+        {
+            // Взять позицию из сохранения
+            Vector3Data savedPosition = progress.WorldData.PositionOnLevel.Position;
+            if (savedPosition != null)
+                Warp(to: savedPosition);
+        }
+    }
+
+    // CharacterController может забагать, поэтому отключаем на момент
+    private void Warp(Vector3Data to)
+    {
+        _characterController.enabled = false;
+        transform.position = to.AsUnityVector();
+        _characterController.enabled = true;
+    }
+
+    private static string CurrentLevel() =>
+        SceneManager.GetActiveScene().name;
 }

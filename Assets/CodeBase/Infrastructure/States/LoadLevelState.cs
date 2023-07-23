@@ -26,8 +26,9 @@ namespace CodeBase.Infrastructure.States
 
         public void Enter(string sceneName)
         {
-            _curtain.Show();
-            _sceneLoader.Load(sceneName, OnLoaded);
+            _curtain.Show();                            // Показать окно загрузки
+            _gameFactory.Cleanup();                     // Зачистить коллекции
+            _sceneLoader.Load(sceneName, OnLoaded);     // Загрузить сцену
         }
 
         public void Exit()
