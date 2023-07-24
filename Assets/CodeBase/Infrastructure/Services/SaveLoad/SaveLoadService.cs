@@ -1,24 +1,35 @@
 ﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.SaveLoad
 {
     public class SaveLoadService : ISaveLoadService
     {
-        private readonly IGameFactory _gameFactory;
         private const string ProgressKey = "Progress";
 
-        public SaveLoadService(IGameFactory gameFactory)
+        private readonly IPersistentProgressService _progressService;
+        private readonly IGameFactory _gameFactory;
+
+        public SaveLoadService(IPersistentProgressService progressService, IGameFactory gameFactory)
         {
+            _progressService = progressService;
             _gameFactory = gameFactory;
         }
 
+        // Сохранение прогресса
         public void SaveProgress()
         {
+            // Опросили всех и записали в прогресс
+            foreach (ISavedProgress progressWriter in _gameFactory.progressWriters)
+                progressWriter.UpdateProgress(_progressService.Progress);
 
+            // Записть в PlayerPrefs
+            PlayerPrefs.SetString(ProgressKey, _progressService.Progress.ToJson());
         }
 
+        // Выгрузить из PlayerPrefs
         public PlayerProgress LoadProgress() => 
             PlayerPrefs.GetString(ProgressKey)?.ToDeserialized<PlayerProgress>();
     }

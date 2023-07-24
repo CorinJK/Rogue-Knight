@@ -2,6 +2,7 @@
 using CodeBase.Logic;
 using CodeBase.Infrastructure.Factory;
 using UnityEngine;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -14,14 +15,16 @@ namespace CodeBase.Infrastructure.States
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _curtain;
         private readonly IGameFactory _gameFactory;
+        private readonly IPersistentProgressService _progressService;
 
         // Конструктор
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory)
+        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory, IPersistentProgressService progressService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _curtain = curtain;
             _gameFactory = gameFactory;
+            _progressService = progressService;
         }
 
         public void Enter(string sceneName)
@@ -36,8 +39,23 @@ namespace CodeBase.Infrastructure.States
             _curtain.Hide();
         }
 
-        // Загружение героя и Hud экрана
+        // Загрузка уровня
         private void OnLoaded()
+        {
+            InitGameWorld();
+            InformProgressReaders();
+
+            _stateMachine.Enter<GameLoopState>();
+        }
+
+        private void InformProgressReaders()
+        {
+            foreach (ISavedProgressReader progressReader in _gameFactory.progressReaders)
+                progressReader.LoadProgress(_progressService.Progress);
+        }
+
+        // Загружение героя и Hud экрана
+        private void InitGameWorld()
         {
             // Найти объект метку по тегу
             GameObject hero = _gameFactory.CreateHero(at: GameObject.FindWithTag(InitialPointTag));
@@ -45,8 +63,6 @@ namespace CodeBase.Infrastructure.States
 
             // Подключить камеру
             CameraFollow(hero);
-
-            _stateMachine.Enter<GameLoopState>();
         }
 
         // Слежение камеры

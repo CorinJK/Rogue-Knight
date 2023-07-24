@@ -27,6 +27,7 @@ namespace CodeBase.Infrastructure.Factory
         public void CreateHud() => 
             InstantiateRegistered(AssetPath.HudPath);
 
+        // Инстанциирует
         private GameObject InstantiateRegistered(string prefabPath, Vector3 at)
         {
             GameObject gameObject = _assets.Instantiate(prefabPath, at);
@@ -34,6 +35,7 @@ namespace CodeBase.Infrastructure.Factory
             return gameObject;
         }
 
+        // Инстанциирует с перегрузкой
         private GameObject InstantiateRegistered(string prefabPath)
         {
             GameObject gameObject = _assets.Instantiate(prefabPath);

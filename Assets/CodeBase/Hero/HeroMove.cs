@@ -64,10 +64,11 @@ public class HeroMove : MonoBehaviour, ISavedProgressReader
     }
 
     // CharacterController может забагать, поэтому отключаем на момент
+    // Добавляем высоту по оси Y, чтобы не застряли ноги в земле
     private void Warp(Vector3Data to)
     {
         _characterController.enabled = false;
-        transform.position = to.AsUnityVector();
+        transform.position = to.AsUnityVector().AddY(_characterController.height);
         _characterController.enabled = true;
     }
 
