@@ -30,24 +30,27 @@ namespace CodeBase.Infrastructure.States
         // where является ограничением
         public void Enter<TState>() where TState : class, IState
         {
-            _activeState?.Exit();                       // Выйти из предыдущего стета с проверкой
-            IState state = GetState<TState>();          // Получить тип - typeof
-            _activeState = state;                       // Присвоить новый стате
+            IState state = ChangeState<TState>();       // Присвоить новый стате
             state.Enter();                              // Отправиться в стате
         }
 
-        // Enter для ситуации, когда необходимо учитывать сцену
+        // Enter для ситуации, когда необходимо учитывать доп.параметр
         public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadedState<TPayload>
         {
-            _activeState?.Exit();
-            IPayloadedState<TPayload> state = GetState<TState>();
-            _activeState = state;
+            TState state = ChangeState<TState>();
             state.Enter(payload);
         }
 
-        // Давнкаст as
+        private TState ChangeState<TState>() where TState : class, IExitableState
+        {
+            _activeState?.Exit();                       // Выйти из предыдущего стета с проверкой
+            TState state = GetState<TState>();          // Получить тип - typeof
+            _activeState = state;
+            return state;
+        }
+
+        // DownCast - as
         private TState GetState<TState>() where TState : class, IExitableState =>
             _states[typeof(TState)] as TState;
-
     }
 }

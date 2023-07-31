@@ -1,77 +1,79 @@
-﻿using CodeBase;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(CharacterController))]
-public class HeroMove : MonoBehaviour, ISavedProgressReader
+namespace CodeBase.Hero
 {
-    [SerializeField] private float MovementSpeed = 4.0f;
-
-    private CharacterController _characterController;
-    private IInputService _input;
-
-    private void Awake()
+    [RequireComponent(typeof(CharacterController))]
+    public class HeroMove : MonoBehaviour, ISavedProgressReader
     {
-        // Получаем ссылку
-        _input = AllServices.Container.Single<IInputService>();
+        [SerializeField] private float MovementSpeed = 4.0f;
 
-        _characterController = GetComponent<CharacterController>();
-    }
+        private CharacterController _characterController;
+        private IInputService _input;
 
-    private void Update()
-    {
-        // Если ввод отсутствует
-        Vector3 movementVector = Vector3.zero;
-
-        // Если есть ввод (по квадрату длины вектора)
-        if (_input.Axis.sqrMagnitude > Constants.Epsilon)
+        private void Awake()
         {
-            // Чтобы трансформировать вектор из экранных координат в мировые (с помощью камеры)
-            movementVector = Camera.main.transform.TransformDirection(_input.Axis);
-            movementVector.y = 0;
-            movementVector.Normalize();
+            // Получаем ссылку
+            _input = AllServices.Container.Single<IInputService>();
 
-            // Развернуть персонажа по направлению движения
-            transform.forward = movementVector;
+            _characterController = GetComponent<CharacterController>();
         }
 
-        // Добавление гравитации
-        movementVector += Physics.gravity;
-
-        // Само перемещение
-        _characterController.Move(MovementSpeed * movementVector * Time.deltaTime);
-    }
-
-    // Запись в прогресс
-    public void UpdateProgress(PlayerProgress progress) =>
-        progress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
-
-    // Загрузка прогресса
-    public void LoadProgress(PlayerProgress progress)
-    {
-        // Если совпал уровень, на котором ходим загрузиться
-        if (CurrentLevel() == progress.WorldData.PositionOnLevel.Level)
+        private void Update()
         {
-            // Взять позицию из сохранения
-            Vector3Data savedPosition = progress.WorldData.PositionOnLevel.Position;
-            if (savedPosition != null)
-                Warp(to: savedPosition);
+            // Если ввод отсутствует
+            Vector3 movementVector = Vector3.zero;
+
+            // Если есть ввод (по квадрату длины вектора)
+            if (_input.Axis.sqrMagnitude > Constants.Epsilon)
+            {
+                // Чтобы трансформировать вектор из экранных координат в мировые (с помощью камеры)
+                movementVector = Camera.main.transform.TransformDirection(_input.Axis);
+                movementVector.y = 0;
+                movementVector.Normalize();
+
+                // Развернуть персонажа по направлению движения
+                transform.forward = movementVector;
+            }
+
+            // Добавление гравитации
+            movementVector += Physics.gravity;
+
+            // Само перемещение
+            _characterController.Move(MovementSpeed * movementVector * Time.deltaTime);
         }
-    }
 
-    // CharacterController может забагать, поэтому отключаем на момент
-    // Добавляем высоту по оси Y, чтобы не застряли ноги в земле
-    private void Warp(Vector3Data to)
-    {
-        _characterController.enabled = false;
-        transform.position = to.AsUnityVector().AddY(_characterController.height);
-        _characterController.enabled = true;
-    }
+        // Запись в прогресс
+        public void UpdateProgress(PlayerProgress progress) =>
+            progress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
 
-    private static string CurrentLevel() =>
-        SceneManager.GetActiveScene().name;
+        // Загрузка прогресса
+        public void LoadProgress(PlayerProgress progress)
+        {
+            // Если совпал уровень, на котором ходим загрузиться
+            if (CurrentLevel() == progress.WorldData.PositionOnLevel.Level)
+            {
+                // Взять позицию из сохранения
+                Vector3Data savedPosition = progress.WorldData.PositionOnLevel.Position;
+                if (savedPosition != null)
+                    Warp(to: savedPosition);
+            }
+        }
+
+        // CharacterController может забагать, поэтому отключаем на момент
+        // Добавляем высоту по оси Y, чтобы не застряли ноги в земле
+        private void Warp(Vector3Data to)
+        {
+            _characterController.enabled = false;
+            transform.position = to.AsUnityVector().AddY(_characterController.height);
+            _characterController.enabled = true;
+        }
+
+        private static string CurrentLevel() =>
+            SceneManager.GetActiveScene().name;
+    }
 }

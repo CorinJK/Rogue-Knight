@@ -14,6 +14,7 @@ namespace CodeBase.Infrastructure.Services.Input
         // Получаем нажатую кнопку атаки
         public bool IsAttackButtonUp() => SimpleInput.GetButtonUp(Button);
 
+        // Ввод с джойстика
         protected static Vector2 SimpleInputAxis() =>
             new Vector2(SimpleInput.GetAxis(Horizontal), SimpleInput.GetAxis(Vertical));
     }

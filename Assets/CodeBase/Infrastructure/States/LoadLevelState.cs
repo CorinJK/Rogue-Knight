@@ -6,7 +6,7 @@ using CodeBase.Infrastructure.Services.PersistentProgress;
 
 namespace CodeBase.Infrastructure.States
 {
-    internal class LoadLevelState : IPayloadedState<string>
+    public class LoadLevelState : IPayloadedState<string>
     {
         private const string InitialPointTag = "InitialPoint";
 
@@ -34,10 +34,8 @@ namespace CodeBase.Infrastructure.States
             _sceneLoader.Load(sceneName, OnLoaded);     // Загрузить сцену
         }
 
-        public void Exit()
-        {
-            _curtain.Hide();
-        }
+        public void Exit() => 
+            _curtain.Hide();                            // Исчезание окна загрузки
 
         // Загрузка уровня
         private void OnLoaded()
@@ -66,7 +64,7 @@ namespace CodeBase.Infrastructure.States
         }
 
         // Слежение камеры
-        private void CameraFollow(GameObject hero)
+        private static void CameraFollow(GameObject hero)
         {
             Camera.main
                 .GetComponent<CameraFollow>()

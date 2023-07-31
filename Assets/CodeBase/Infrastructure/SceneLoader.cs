@@ -23,17 +23,18 @@ namespace CodeBase.Infrastructure
             // Чтобы не загружал сцену, которая уже активна
             if (SceneManager.GetActiveScene().name == nextScene)
             {
-                onLoaded?.Invoke();
+                onLoaded?.Invoke();     // Запустить тех, кому нужна была инфа
                 yield break;            // Закончить выполнение корутины
             }
 
+            // Асинхронная загрузка, т.е. запросили загрузку сцены
             AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(nextScene);
 
             // Ждем пока операция НЕ закончится
             while (!waitNextScene.isDone)
                 yield return null;
 
-            // Этот код выполняется на след кажде после yield return null
+            // Этот код выполняется на след кадре после yield return null
             onLoaded?.Invoke();
         }
     }

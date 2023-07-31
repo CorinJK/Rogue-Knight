@@ -9,6 +9,8 @@ namespace CodeBase.Infrastructure.Services.Input
             get
             {
                 Vector2 axis = SimpleInputAxis();
+
+                // Если ввод с джойстика нулевой, то подключить ввод с WASD
                 if (axis == Vector2.zero)
                 {
                     axis = UnityAxis();

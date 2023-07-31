@@ -1,13 +1,11 @@
 ﻿using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using System;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Factory
 {
-    internal class GameFactory : IGameFactory
+    public class GameFactory : IGameFactory
     {
         private readonly IAssets _assets;
 

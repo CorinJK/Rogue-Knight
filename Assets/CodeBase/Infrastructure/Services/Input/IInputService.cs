@@ -6,6 +6,7 @@ namespace CodeBase.Infrastructure.Services.Input
     {
         Vector2 Axis { get; }
 
+        // Нажата ли кнопка атаки
         bool IsAttackButtonUp();
     }
 }
