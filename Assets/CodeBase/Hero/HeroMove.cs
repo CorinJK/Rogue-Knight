@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 namespace CodeBase.Hero
 {
     [RequireComponent(typeof(CharacterController))]
-    public class HeroMove : MonoBehaviour, ISavedProgressReader
+    public class HeroMove : MonoBehaviour, ISavedProgress
     {
         [SerializeField] private float MovementSpeed = 4.0f;
 
@@ -51,7 +51,7 @@ namespace CodeBase.Hero
         public void UpdateProgress(PlayerProgress progress) =>
             progress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
 
-        // Загрузка прогресса
+        // Загрузка из прогресса
         public void LoadProgress(PlayerProgress progress)
         {
             // Если совпал уровень, на котором ходим загрузиться

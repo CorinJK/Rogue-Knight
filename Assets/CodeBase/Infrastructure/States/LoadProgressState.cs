@@ -30,9 +30,12 @@ namespace CodeBase.Infrastructure.States
             
         }
 
+        // Инициализируем поле Progress
+        // Сервис проверят есть сохраненные данные, если нет - новый прогресс
         private void LoadProgressOrInitNew() => 
             _progressService.Progress = _saveLoadService.LoadProgress() ?? NewProgress();
 
+        // Вернем первую сцену
         private PlayerProgress NewProgress() => 
             new PlayerProgress(initialLevel: "Main");
     }

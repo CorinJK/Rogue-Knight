@@ -9,8 +9,9 @@ namespace CodeBase.Infrastructure.Factory
     {
         private readonly IAssets _assets;
 
-        public List<ISavedProgressReader> progressReaders { get; } = new List<ISavedProgressReader>();
-        public List<ISavedProgress> progressWriters { get; } = new List<ISavedProgress>();
+        // Два свойства - листы
+        public List<ISavedProgressReader> progressReaders { get; } = new List<ISavedProgressReader>();      // Те, кто хочет прочитать
+        public List<ISavedProgress> progressWriters { get; } = new List<ISavedProgress>();                  // Те, кто хотят записать
 
         public GameFactory(IAssets assets)
         {
@@ -41,6 +42,7 @@ namespace CodeBase.Infrastructure.Factory
             return gameObject;
         }
 
+        // Ищем все компоненты, которые реализуют интерфейс ISavedProgressReader
         private void RegisterProgressWatchers(GameObject gameObject)
         {
             foreach (ISavedProgressReader progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>())
@@ -57,9 +59,11 @@ namespace CodeBase.Infrastructure.Factory
         // Регистрация
         private void Register(ISavedProgressReader progressReader)
         {
+            // Если сущности нужно записать данные
             if (progressReader is ISavedProgress progressWriter)
                 progressWriters.Add(progressWriter);
 
+            // Добавили в читателей
             progressReaders.Add(progressReader);
         }
     }

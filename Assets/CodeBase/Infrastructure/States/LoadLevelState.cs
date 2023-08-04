@@ -52,7 +52,7 @@ namespace CodeBase.Infrastructure.States
                 progressReader.LoadProgress(_progressService.Progress);
         }
 
-        // Загружение героя и Hud экрана
+        // Загружение мира: героя и Hud экрана
         private void InitGameWorld()
         {
             // Найти объект метку по тегу
