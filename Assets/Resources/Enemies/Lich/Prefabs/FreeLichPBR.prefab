@@ -383,10 +383,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4665124114459090}
   - component: {fileID: 95206231959375140}
-  - component: {fileID: 1759886331324184333}
   - component: {fileID: 94636274975342096}
-  - component: {fileID: 2102118467956099732}
+  - component: {fileID: 1759886331324184333}
   - component: {fileID: 3063976516692614326}
+  - component: {fileID: 2102118467956099732}
+  - component: {fileID: 7013135988606894176}
   m_Layer: 0
   m_Name: FreeLichPBR
   m_TagString: Untagged
@@ -430,6 +431,28 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!195 &94636274975342096
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500939411536426}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3
+  m_Acceleration: 15
+  avoidancePriority: 50
+  m_AngularSpeed: 1600
+  m_StoppingDistance: 1.5
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 0
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &1759886331324184333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,41 +465,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb8884f93e044d47b79b772e788ce2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!195 &94636274975342096
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1500939411536426}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 5
-  m_Acceleration: 15
-  avoidancePriority: 50
-  m_AngularSpeed: 1600
-  m_StoppingDistance: 1.5
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 0
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &2102118467956099732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1500939411536426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 034765c4c96c2354eb0bab6b0601f840, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Agent: {fileID: 94636274975342096}
 --- !u!114 &3063976516692614326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,6 +479,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Agent: {fileID: 94636274975342096}
   Animator: {fileID: 1759886331324184333}
+--- !u!114 &2102118467956099732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500939411536426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0142f1ba4a88e644cba659bbe494642e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Agent: {fileID: 94636274975342096}
+--- !u!114 &7013135988606894176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500939411536426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6532d7f62ef26c44bdbce7b380e677a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TriggerObserver: {fileID: 5939452983036156044}
+  Follow: {fileID: 2102118467956099732}
+  Cooldown: 2
 --- !u!1 &1537370055453520
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,6 +929,7 @@ GameObject:
   m_Component:
   - component: {fileID: 61040758149099996}
   - component: {fileID: 1295658633057390811}
+  - component: {fileID: 5939452983036156044}
   m_Layer: 13
   m_Name: AggroZone
   m_TagString: Untagged
@@ -945,5 +962,17 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 4
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &5939452983036156044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6767596008735411899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981177e063b677644a6b09accaf473df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
