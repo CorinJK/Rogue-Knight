@@ -1,5 +1,7 @@
 ﻿using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
+using System;
+using System.Linq;
 using UnityEngine;
 
 namespace CodeBase.Enemy
@@ -10,16 +12,24 @@ namespace CodeBase.Enemy
         public EnemyAnimator Animator;
 
         public float AttackColldown = 3f;
+        public float CLeavage = 0.5f;               // Радиус сферы
+        public float EffectiveDistance = 0.5f;
 
-        private float _attackColldown;      // Текущая инфа о CD
+        private float _attackColldown;              // Текущая инфа о CD
         private bool _isAttacking;
 
         private IGameFactory _gameFactory;
         private Transform _heroTransform;           // Чтобы поворачиваться к герою во время атаки
+        private int _layerMask;
+        private Collider[] _hits = new Collider[1]; // Буфер коллайдеров
+        private bool _attackIsActive;
 
         private void Awake()
         {
             _gameFactory = AllServices.Container.Single<IGameFactory>();
+
+            _layerMask = 1 << LayerMask.NameToLayer("Player");              // Определение слоя маски
+
             _gameFactory.HeroCreated += OnHeroCreated;                      // Подписались на ивент
         }
 
@@ -35,7 +45,32 @@ namespace CodeBase.Enemy
 
         private void OnAttack()
         {
+            // Проверяем что hit произошел
+            if (Hit(out Collider hit))
+            {
+                PhysicsDebug.DrawDebug(StartPoint(), CLeavage, 1);
+            }
         }
+
+        public void EnableAttack() => 
+            _attackIsActive = true;
+
+        public void DisableAttack() => 
+            _attackIsActive = false;
+
+        private bool Hit(out Collider hit)
+        {
+            // Нам нужна позиция, размер сферы, буфер и маска со слоями
+            int hitCount = Physics.OverlapSphereNonAlloc(StartPoint(), CLeavage, _hits, _layerMask);
+
+            // Достать из буфера, если есть
+            hit = _hits.FirstOrDefault();
+
+            return hitCount > 0;
+        }
+
+        private Vector3 StartPoint() => 
+            new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z) + transform.forward * EffectiveDistance;
 
         private void OnAttackEnded()
         {
@@ -59,8 +94,8 @@ namespace CodeBase.Enemy
             _isAttacking = true;
         }
 
-        private bool CanAttack() => 
-            !_isAttacking && CooldownIsUp();
+        private bool CanAttack() =>
+            _attackIsActive && !_isAttacking && CooldownIsUp();
 
         private bool CooldownIsUp() => 
             _attackColldown <= 0;
