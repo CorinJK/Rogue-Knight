@@ -1,5 +1,6 @@
 ﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using System;
 using UnityEngine;
 
 namespace CodeBase.Hero
@@ -10,11 +11,21 @@ namespace CodeBase.Hero
         public HeroAnimator Animator;
         private State _state;
 
+        public Action HealthChanged;
+
         // Свойства
         public float Current
         {
             get => _state.CurrentHP;
-            set => _state.CurrentHP = value;
+            set
+            {
+                // Если значение ХП поменялось, подписаться на событие
+                if (_state.CurrentHP != value)
+                {
+                    _state.CurrentHP = value;
+                    HealthChanged?.Invoke();
+                }
+            }
         }
         public float Max
         {
@@ -26,6 +37,7 @@ namespace CodeBase.Hero
         public void LoadProgress(PlayerProgress progress)
         {
             _state = progress.HeroState;
+            HealthChanged?.Invoke();
         }
 
         // Сохранить в прогресс

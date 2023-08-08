@@ -3,6 +3,8 @@ using CodeBase.Logic;
 using CodeBase.Infrastructure.Factory;
 using UnityEngine;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.UI;
+using CodeBase.Hero;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -56,12 +58,23 @@ namespace CodeBase.Infrastructure.States
         private void InitGameWorld()
         {
             // Найти объект метку по тегу
-            GameObject hero = _gameFactory.CreateHero(at: GameObject.FindWithTag(InitialPointTag));
-            _gameFactory.CreateHud();
+            GameObject hero = InitHero();
+            InitHud(hero);
 
             // Подключить камеру
             CameraFollow(hero);
         }
+
+        private void InitHud(GameObject hero)
+        {
+            GameObject hud = _gameFactory.CreateHud();
+
+            hud.GetComponentInChildren<ActorUI>()
+                .Constract(hero.GetComponent<HeroHealth>());
+        }
+
+        private GameObject InitHero() => 
+            _gameFactory.CreateHero(at: GameObject.FindWithTag(InitialPointTag));
 
         // Слежение камеры
         private static void CameraFollow(GameObject hero)

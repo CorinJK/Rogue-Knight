@@ -32,7 +32,7 @@ namespace CodeBase.Infrastructure.Factory
         }
 
         // Создать Hud
-        public void CreateHud() => 
+        public GameObject CreateHud() => 
             InstantiateRegistered(AssetPath.HudPath);
 
         // Зачищать коллекции

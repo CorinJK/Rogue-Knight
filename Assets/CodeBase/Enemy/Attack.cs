@@ -1,6 +1,6 @@
-﻿using CodeBase.Infrastructure.Factory;
+﻿using CodeBase.Hero;
+using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -14,6 +14,7 @@ namespace CodeBase.Enemy
         public float AttackColldown = 3f;
         public float CLeavage = 0.5f;               // Радиус сферы
         public float EffectiveDistance = 0.5f;
+        public float Damage = 10f;
 
         private float _attackColldown;              // Текущая инфа о CD
         private bool _isAttacking;
@@ -49,6 +50,7 @@ namespace CodeBase.Enemy
             if (Hit(out Collider hit))
             {
                 PhysicsDebug.DrawDebug(StartPoint(), CLeavage, 1);
+                hit.transform.GetComponent<HeroHealth>().TakeDamage(Damage);
             }
         }
 

@@ -509,7 +509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TriggerObserver: {fileID: 5939452983036156044}
   Follow: {fileID: 2102118467956099732}
-  Cooldown: 2
+  Cooldown: 3
 --- !u!114 &5978157605914713395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,6 +526,7 @@ MonoBehaviour:
   AttackColldown: 3
   CLeavage: 0.5
   EffectiveDistance: 0.5
+  Damage: 10
 --- !u!114 &506803521111436616
 MonoBehaviour:
   m_ObjectHideFlags: 0

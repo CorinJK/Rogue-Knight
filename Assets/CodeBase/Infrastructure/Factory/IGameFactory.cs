@@ -15,8 +15,8 @@ namespace CodeBase.Infrastructure.Factory
         // Временный эвент о создании героя
         event Action HeroCreated;     
         GameObject CreateHero(GameObject at);
+        GameObject CreateHud();
 
-        void CreateHud();
         void Cleanup();
     }
 }
