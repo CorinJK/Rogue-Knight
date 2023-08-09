@@ -8,6 +8,7 @@ namespace CodeBase.Hero
         public HeroHealth Health;
 
         public HeroMove Move;
+        public HeroAttack Attack;
         public HeroAnimator Animator;
 
         public GameObject DeathFx;
@@ -34,6 +35,7 @@ namespace CodeBase.Hero
             _isDead = true;             // Чтобы не было много смертей подряд
 
             Move.enabled = false;       // Отключить движение
+            Attack.enabled = false;     // Отключить атаку
             Animator.PlayDeath();       // Проиграть смерть
 
             // Что инстанциировать, где, и то что ничего менять не надо по направдению

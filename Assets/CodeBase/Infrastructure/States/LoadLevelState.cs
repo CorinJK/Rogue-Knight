@@ -70,7 +70,7 @@ namespace CodeBase.Infrastructure.States
             GameObject hud = _gameFactory.CreateHud();
 
             hud.GetComponentInChildren<ActorUI>()
-                .Constract(hero.GetComponent<HeroHealth>());
+                .Construct(hero.GetComponent<HeroHealth>());
         }
 
         private GameObject InitHero() => 

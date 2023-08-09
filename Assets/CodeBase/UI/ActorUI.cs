@@ -1,4 +1,4 @@
-﻿using CodeBase.Hero;
+﻿using CodeBase.Logic;
 using UnityEngine;
 
 namespace CodeBase.UI
@@ -8,24 +8,31 @@ namespace CodeBase.UI
         public HpBar HpBar;
 
         // Не можем брать через сцену, тк HUD мы создаем скриптом
-        private HeroHealth _heroHealth;
-
-        // Удаление с отпиской
-        private void OnDestroy() => 
-            _heroHealth.HealthChanged -= UpdateHpBar;
+        private IHealth _health;
 
         // Получаем и подписываемся
-        public void Constract(HeroHealth health)
+        public void Construct(IHealth health)
         {
-            _heroHealth = health;
+            _health = health;
 
-            _heroHealth.HealthChanged += UpdateHpBar;
+            _health.HealthChanged += UpdateHpBar;
+        }
+
+        // Временный вариант инициализации
+        private void Start()
+        {
+            IHealth health = GetComponent<IHealth>();
+
+            if (health != null)
+                Construct(health);
         }
 
         // Обновляет значения HpBar
-        private void UpdateHpBar()
-        {
-            HpBar.SetValue(_heroHealth.Current, _heroHealth.Max);
-        }
+        private void UpdateHpBar() => 
+            HpBar.SetValue(_health.Current, _health.Max);
+
+        // Удаление с отпиской
+        private void OnDestroy() => 
+            _health.HealthChanged -= UpdateHpBar;
     }
 }

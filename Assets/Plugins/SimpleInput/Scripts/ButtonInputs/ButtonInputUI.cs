@@ -15,24 +15,16 @@ namespace SimpleInputNamespace
 				graphic.raycastTarget = true;
 		}
 
-		private void OnEnable()
-		{
+        private void OnEnable() => 
 			button.StartTracking();
-		}
 
-		private void OnDisable()
-		{
+        private void OnDisable() => 
 			button.StopTracking();
-		}
 
-		public void OnPointerDown( PointerEventData eventData )
-		{
+        public void OnPointerDown(PointerEventData eventData) => 
 			button.value = true;
-		}
 
-		public void OnPointerUp( PointerEventData eventData )
-		{
+        public void OnPointerUp(PointerEventData eventData) => 
 			button.value = false;
-		}
-	}
+    }
 }
