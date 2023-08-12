@@ -1,7 +1,7 @@
-﻿using CodeBase.Infrastructure.Services;
-using CodeBase.Infrastructure.Services.PersistentProgress;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Factory
@@ -18,5 +18,6 @@ namespace CodeBase.Infrastructure.Factory
         GameObject CreateHud();
 
         void Cleanup();
+        void Register(ISavedProgressReader savedProgress);
     }
 }

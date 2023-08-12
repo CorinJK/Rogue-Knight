@@ -14,11 +14,15 @@ namespace CodeBase.Data
         // Статы героя
         public Stats HeroStats;
 
+        // Очистить спавнеры
+        public KillData KillData;
+
         public PlayerProgress(string initialLevel)
         {
             WorldData = new WorldData(initialLevel);
             HeroState = new State();
             HeroStats = new Stats();
+            KillData = new KillData();
         }
     }
 }

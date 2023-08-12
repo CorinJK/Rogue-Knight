@@ -1,7 +1,7 @@
-﻿using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Infrastructure.Services.PersistentProgress;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Factory
@@ -66,7 +66,7 @@ namespace CodeBase.Infrastructure.Factory
         }
 
         // Регистрация
-        private void Register(ISavedProgressReader progressReader)
+        public void Register(ISavedProgressReader progressReader)
         {
             // Если сущности нужно записать данные
             if (progressReader is ISavedProgress progressWriter)

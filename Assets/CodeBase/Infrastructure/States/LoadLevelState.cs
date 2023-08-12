@@ -11,6 +11,7 @@ namespace CodeBase.Infrastructure.States
     public class LoadLevelState : IPayloadedState<string>
     {
         private const string InitialPointTag = "InitialPoint";
+        private const string EnemySpawnerTag = "EmemySpawner";
 
         // Зависимости
         private readonly GameStateMachine _stateMachine;
@@ -57,12 +58,24 @@ namespace CodeBase.Infrastructure.States
         // Загружение мира: героя и Hud экрана
         private void InitGameWorld()
         {
-            // Найти объект метку по тегу
+            // Инициировать спавнеры
+            InitSpawners();
+
+            // Инициировать героя и hud
             GameObject hero = InitHero();
             InitHud(hero);
 
             // Подключить камеру
             CameraFollow(hero);
+        }
+
+        private void InitSpawners()
+        {
+            foreach (GameObject spawnerObject in GameObject.FindGameObjectsWithTag(EnemySpawnerTag))
+            {
+                var spawner = spawnerObject.GetComponent<EnemySpawner>();
+                _gameFactory.Register(spawner);
+            }
         }
 
         private void InitHud(GameObject hero)

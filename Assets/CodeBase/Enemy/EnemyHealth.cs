@@ -1,5 +1,5 @@
-﻿using CodeBase.Logic;
-using System;
+﻿using System;
+using CodeBase.Logic;
 using UnityEngine;
 
 namespace CodeBase.Enemy
