@@ -1,5 +1,4 @@
 ﻿using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,20 +11,9 @@ namespace CodeBase.Enemy
         public NavMeshAgent Agent;
 
         private Transform _heroTransform;
-        private IGameFactory _gameFactory;
 
-        // Некрасиво пока что получаем фабрику для инициализации героя
-        private void Start()
-        {
-            _gameFactory = AllServices.Container.Single<IGameFactory>();
-
-            // Если герой уже существует у фабрики
-            if (HeroExists())
-                InitializeHeroTransform();
-            // Подписываемся на ивент создания героя
-            else
-                _gameFactory.HeroCreated += InitializeHeroTransform;
-        }
+        public void Construct(Transform heroTransform) => 
+            _heroTransform = heroTransform;
 
         private void Update()
         {
@@ -33,13 +21,6 @@ namespace CodeBase.Enemy
             if (Initialized() && HeroNotReached())
                 Agent.destination = _heroTransform.position;
         }
-
-        private bool HeroExists() => 
-            _gameFactory.HeroGameObject != null;
-
-        // Просто берем героя у фабрики
-        private void InitializeHeroTransform() => 
-            _heroTransform = _gameFactory.HeroGameObject.transform;
 
         private bool Initialized() => 
             _heroTransform != null;

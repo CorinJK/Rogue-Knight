@@ -1,7 +1,5 @@
-﻿using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services;
+﻿using System.Linq;
 using CodeBase.Logic;
-using System.Linq;
 using UnityEngine;
 
 namespace CodeBase.Enemy
@@ -19,19 +17,17 @@ namespace CodeBase.Enemy
         private float _attackColldown;              // Текущая инфа о CD
         private bool _isAttacking;
 
-        private IGameFactory _gameFactory;
         private Transform _heroTransform;           // Чтобы поворачиваться к герою во время атаки
         private int _layerMask;
         private Collider[] _hits = new Collider[1]; // Буфер коллайдеров
         private bool _attackIsActive;
 
+        public void Construct(Transform heroTransform) => 
+            _heroTransform = heroTransform;
+
         private void Awake()
         {
-            _gameFactory = AllServices.Container.Single<IGameFactory>();
-
             _layerMask = 1 << LayerMask.NameToLayer("Player");              // Определение слоя маски
-
-            _gameFactory.HeroCreated += OnHeroCreated;                      // Подписались на ивент
         }
 
         private void Update()
@@ -101,9 +97,5 @@ namespace CodeBase.Enemy
 
         private bool CooldownIsUp() => 
             _attackColldown <= 0;
-
-        // Получили hero трансформ
-        private void OnHeroCreated() =>
-            _heroTransform = _gameFactory.HeroGameObject.transform;
     }
 }
