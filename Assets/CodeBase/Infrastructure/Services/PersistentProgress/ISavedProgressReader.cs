@@ -8,10 +8,4 @@ namespace CodeBase.Infrastructure.Services.PersistentProgress
         // Загрузить прогресс
         void LoadProgress(PlayerProgress progress);
     }
-
-    public interface ISavedProgress : ISavedProgressReader
-    {
-        // Дописать что то в прогресс
-        void UpdateProgress(PlayerProgress progress);
-    }
 }

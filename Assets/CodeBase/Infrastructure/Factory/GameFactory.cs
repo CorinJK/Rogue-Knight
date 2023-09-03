@@ -50,7 +50,7 @@ namespace CodeBase.Infrastructure.Factory
             health.Max = monsterData.Hp;
 
             monster.GetComponent<ActorUI>().Construct(health);
-            monster.GetComponent<AgentMoveToHero>().Construct(HeroGameObject.transform);
+            monster.GetComponent<AgentMoveToPlayer>().Construct(HeroGameObject.transform);
             monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
 
             var attack = monster.GetComponent<Attack>();

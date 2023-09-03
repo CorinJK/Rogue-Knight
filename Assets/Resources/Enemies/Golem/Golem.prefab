@@ -785,8 +785,32 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 22100000, guid: 7c951d853392440dcbdbdef122b58394,
-        type: 2}
+      objectReference: {fileID: 9100000, guid: 64e2ef14a02f69a4b94edbee54ca296a, type: 2}
+    - target: {fileID: 4335319131401554045, guid: 274c4c35ed05ea14c87492064b3cadfd,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335319131401554045, guid: 274c4c35ed05ea14c87492064b3cadfd,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335319131401554045, guid: 274c4c35ed05ea14c87492064b3cadfd,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335319131401554045, guid: 274c4c35ed05ea14c87492064b3cadfd,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335319131401554045, guid: 274c4c35ed05ea14c87492064b3cadfd,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4833631490848025448, guid: 274c4c35ed05ea14c87492064b3cadfd,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -796,6 +820,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978157605914713395, guid: 274c4c35ed05ea14c87492064b3cadfd,
+        type: 3}
+      propertyPath: AttackColldown
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8188204158430964870, guid: 274c4c35ed05ea14c87492064b3cadfd,
         type: 3}

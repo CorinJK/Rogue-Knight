@@ -36,11 +36,11 @@ namespace CodeBase.Hero
         // Проверяем попадание
         public void OnAttack()
         {
+            PhysicsDebug.DrawDebug(StartPoint() + transform.forward, _stats.DamageRadius, 1);
+
             // Для каждого хита
             for (int i =  0; i < Hit(); i++)
             {
-                PhysicsDebug.DrawDebug(StartPoint(), _stats.DamageRadius, 1);
-
                 // Взять коллайдер из буфера, вытащить трансформ родителя и взять компонент здоровья
                 // И нанести урон, а значение урона в статах героя
                 _hits[i].transform.parent.GetComponent<IHealth>().TakeDamage(_stats.Damage);

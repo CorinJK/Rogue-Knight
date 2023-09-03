@@ -1,10 +1,9 @@
-﻿using CodeBase.Infrastructure.Factory;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 namespace CodeBase.Enemy
 {
-    public class AgentMoveToHero : Follow
+    public class AgentMoveToPlayer : Follow
     {
         private const float MinimalDistance = 1;
 
