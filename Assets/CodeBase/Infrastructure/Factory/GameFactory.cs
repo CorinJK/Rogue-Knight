@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CodeBase.Infrastructure.Services.Randomizer;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.PersistentProgress;
@@ -7,7 +8,6 @@ using CodeBase.StaticData;
 using CodeBase.UI;
 using UnityEngine;
 using UnityEngine.AI;
-using Object = UnityEngine.Object;
 
 namespace CodeBase.Infrastructure.Factory
 {
@@ -15,6 +15,7 @@ namespace CodeBase.Infrastructure.Factory
     {
         private readonly IAssets _assets;
         private readonly IStaticDataService _staticData;
+        private readonly IRandomService _randomService;
 
         // Два свойства - листы
         public List<ISavedProgressReader> progressReaders { get; } = new List<ISavedProgressReader>();      // Те, кто хочет прочитать
@@ -22,12 +23,17 @@ namespace CodeBase.Infrastructure.Factory
 
         private GameObject HeroGameObject { get; set; }
 
-        public GameFactory(IAssets assets, IStaticDataService staticData)
+        public GameFactory(IAssets assets, IStaticDataService staticData, IRandomService randomService)
         {
             _assets = assets;
             _staticData = staticData;
+            _randomService = randomService;
         }
-
+        
+        // Создать лут
+        public GameObject CreateLoot() => 
+            InstantiateRegistered(AssetPath.Loot);
+        
         // Создать героя
         public GameObject CreateHero(GameObject at)
         {
@@ -52,6 +58,10 @@ namespace CodeBase.Infrastructure.Factory
             monster.GetComponent<ActorUI>().Construct(health);
             monster.GetComponent<AgentMoveToPlayer>().Construct(HeroGameObject.transform);
             monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
+
+            var lootSpawner = monster.GetComponentInChildren<LootSpawner>();
+            lootSpawner.Construct(this, _randomService);
+            lootSpawner.SetLoot(monsterData.MinLoot, monsterData.MaxLoot);
 
             var attack = monster.GetComponent<Attack>();
             attack.Construct(HeroGameObject.transform);

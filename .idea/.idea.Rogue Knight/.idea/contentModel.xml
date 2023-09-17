@@ -17,6 +17,8 @@
           <e p="Data" t="Include">
             <e p="DataExtensions.cs" t="Include" />
             <e p="KillData.cs" t="Include" />
+            <e p="Loot.cs" t="Include" />
+            <e p="LootData.cs" t="Include" />
             <e p="PlayerProgress.cs" t="Include" />
             <e p="PositionOnLevel.cs" t="Include" />
             <e p="State.cs" t="Include" />
@@ -40,6 +42,8 @@
             <e p="EnemyDeath.cs" t="Include" />
             <e p="EnemyHealth.cs" t="Include" />
             <e p="Follow.cs" t="Include" />
+            <e p="LootPiece.cs" t="Include" />
+            <e p="LootSpawner.cs" t="Include" />
             <e p="PhysicsDebug.cs" t="Include" />
             <e p="RotateToHero.cs" t="Include" />
             <e p="TriggerObserver.cs" t="Include" />
@@ -66,6 +70,10 @@
             <e p="GameBootstrapper.cs" t="Include" />
             <e p="GameRunner.cs" t="Include" />
             <e p="ICoroutineRunner.cs" t="Include" />
+            <e p="Randomizer" t="Include">
+              <e p="IRandomService.cs" t="Include" />
+              <e p="RandomeService.cs" t="Include" />
+            </e>
             <e p="SceneLoader.cs" t="Include" />
             <e p="Services" t="Include">
               <e p="AllServices.cs" t="Include" />
