@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Infrastructure.Services.Randomizer;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Infrastructure.Services.Randomizer;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
 using CodeBase.StaticData;
 using CodeBase.UI;
 using UnityEngine;
 using UnityEngine.AI;
+using Object = UnityEngine.Object;
 
 namespace CodeBase.Infrastructure.Factory
 {
@@ -16,6 +17,7 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IAssets _assets;
         private readonly IStaticDataService _staticData;
         private readonly IRandomService _randomService;
+        private readonly IPersistentProgressService _progressService;
 
         // Два свойства - листы
         public List<ISavedProgressReader> progressReaders { get; } = new List<ISavedProgressReader>();      // Те, кто хочет прочитать
@@ -23,17 +25,25 @@ namespace CodeBase.Infrastructure.Factory
 
         private GameObject HeroGameObject { get; set; }
 
-        public GameFactory(IAssets assets, IStaticDataService staticData, IRandomService randomService)
+        public GameFactory(IAssets assets, IStaticDataService staticData, IRandomService randomService, IPersistentProgressService progressService)
         {
             _assets = assets;
             _staticData = staticData;
             _randomService = randomService;
+            _progressService = progressService;
         }
         
         // Создать лут
-        public GameObject CreateLoot() => 
-            InstantiateRegistered(AssetPath.Loot);
-        
+        public LootPiece CreateLoot()
+        {
+            LootPiece lootPiece = InstantiateRegistered(AssetPath.Loot)
+                .GetComponent<LootPiece>();
+
+            lootPiece.Construct(_progressService.Progress.WorldData);
+            
+            return lootPiece;
+        }
+
         // Создать героя
         public GameObject CreateHero(GameObject at)
         {
@@ -42,13 +52,20 @@ namespace CodeBase.Infrastructure.Factory
         }
 
         // Создать Hud
-        public GameObject CreateHud() => 
-            InstantiateRegistered(AssetPath.HudPath);
+        public GameObject CreateHud()
+        {
+            GameObject hud = InstantiateRegistered(AssetPath.HudPath);
+            
+            hud.GetComponentInChildren<LootCounter>()
+                .Construct(_progressService.Progress.WorldData);
+            
+            return hud;
+        }
 
         // Создать монстра
-        public GameObject CreateMonster(MonsterTypeId TypeId, Transform parent)
+        public GameObject CreateMonster(MonsterTypeId typeId, Transform parent)
         {
-            MonsterStaticData monsterData = _staticData.ForMonster(TypeId);
+            MonsterStaticData monsterData = _staticData.ForMonster(typeId);
             GameObject monster = Object.Instantiate(monsterData.Prefab, parent.position, Quaternion.identity, parent);
 
             var health = monster.GetComponent<IHealth>();
@@ -59,6 +76,7 @@ namespace CodeBase.Infrastructure.Factory
             monster.GetComponent<AgentMoveToPlayer>().Construct(HeroGameObject.transform);
             monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
 
+            // Подключение лута
             var lootSpawner = monster.GetComponentInChildren<LootSpawner>();
             lootSpawner.Construct(this, _randomService);
             lootSpawner.SetLoot(monsterData.MinLoot, monsterData.MaxLoot);

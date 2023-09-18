@@ -8,13 +8,16 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa14100.6502/GameStateMachine.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa14100.27268/BootstrapState.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa14100.49743/IRandomService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa17892.38141/LootPiece.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa17892.40266/WorldData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa17892.16314/GameFactory.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa17892.5904/LootPiece.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa17892.43536/BootstrapState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/CodeBase/Infrastructure/Services/Input/IInputService.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa14100.39347/RandomService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa14100.37460/IRandomService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa14100.10817/GameFactory.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa17892.29933/PlayerProgress.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa17892.21825/PlayerProgress.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa17892.18022/IPersistentProgressService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa17892.43518/GameFactory.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -29,12 +32,13 @@
         <option value="$PROJECT_DIR$/Assets/CodeBase/Infrastructure/IRandomService.cs" />
         <option value="$PROJECT_DIR$/Assets/CodeBase/Infrastructure/Randomizer/IRandomService.cs" />
         <option value="$PROJECT_DIR$/Assets/CodeBase/Infrastructure/Randomizer/RandomeService.cs" />
-        <option value="$PROJECT_DIR$/Assets/CodeBase/Infrastructure/States/BootstrapState.cs" />
-        <option value="$PROJECT_DIR$/Assets/CodeBase/Infrastructure/Factory/GameFactory.cs" />
         <option value="$PROJECT_DIR$/Assets/CodeBase/Enemy/LootSpawner.cs" />
         <option value="$PROJECT_DIR$/Assets/CodeBase/Data/WorldData.cs" />
+        <option value="$PROJECT_DIR$/Assets/CodeBase/Infrastructure/States/BootstrapState.cs" />
         <option value="$PROJECT_DIR$/Assets/CodeBase/Enemy/LootPiece.cs" />
         <option value="$PROJECT_DIR$/Assets/CodeBase/Data/LootData.cs" />
+        <option value="$PROJECT_DIR$/Assets/CodeBase/UI/LootCounter.cs" />
+        <option value="$PROJECT_DIR$/Assets/CodeBase/Infrastructure/Factory/GameFactory.cs" />
       </list>
     </option>
   </component>
@@ -59,10 +63,17 @@
       <workItem from="1693767091478" duration="361000" />
       <workItem from="1694959033270" duration="48000" />
       <workItem from="1694959282968" duration="8404000" />
+      <workItem from="1695036029960" duration="10263000" />
     </task>
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="774" y="221" key="RiderGenerateDialog" timestamp="1695076152172">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="774" y="221" key="RiderGenerateDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1695076152172" />
   </component>
 </project>

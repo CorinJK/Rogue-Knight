@@ -1,5 +1,4 @@
 ﻿using CodeBase.Data;
-using CodeBase.Infrastructure;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.Randomizer;
 using UnityEngine;
@@ -14,6 +13,7 @@ namespace CodeBase.Enemy
         private int _lootMin;
         private int _lootMax;
 
+        // Конструктор
         public void Construct(IGameFactory factory, IRandomService random)
         {
             _factory = factory;
@@ -29,10 +29,16 @@ namespace CodeBase.Enemy
         // Спавп лута
         private void SpawnLoot()
         {
-            GameObject loot = _factory.CreateLoot();         // Создаем лут в фабрике
+            LootPiece loot = _factory.CreateLoot();         // Создаем лут в фабрике
             loot.transform.position = transform.position;    // Перемещаем его под моба
 
-            var lootItem = new Loot()
+            Loot lootItem = GenerateLoot();
+            loot.Initialize(lootItem);
+        }
+
+        private Loot GenerateLoot()
+        {
+            return new Loot
             {
                 Value =  _random.Next(_lootMin, _lootMax)
             };

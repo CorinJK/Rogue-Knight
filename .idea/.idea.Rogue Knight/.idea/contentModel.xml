@@ -124,6 +124,7 @@
             <e p="ActorUI.cs" t="Include" />
             <e p="HpBar.cs" t="Include" />
             <e p="LookAtCamera.cs" t="Include" />
+            <e p="LootCounter.cs" t="Include" />
           </e>
         </e>
         <e p="Plugins" t="Include">
