@@ -47,6 +47,8 @@ namespace CodeBase.Infrastructure.States
             progress.HeroStats.Damage = 1f;
             progress.HeroStats.DamageRadius = 0.5f;
 
+            progress.HeroState.CounterCoins = 0;
+
             return progress;
         }
     }

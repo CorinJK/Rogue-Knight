@@ -28,6 +28,7 @@ namespace CodeBase.Hero
                 }
             }
         }
+
         public float Max
         {
             get => _state.MaxHP;

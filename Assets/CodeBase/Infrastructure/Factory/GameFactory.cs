@@ -40,7 +40,8 @@ namespace CodeBase.Infrastructure.Factory
                 .GetComponent<LootPiece>();
 
             lootPiece.Construct(_progressService.Progress.WorldData);
-            
+            //lootPiece.Id = id;
+
             return lootPiece;
         }
 
@@ -90,6 +91,16 @@ namespace CodeBase.Infrastructure.Factory
             monster.GetComponent<RotateToHero>()?.Construct(HeroGameObject.transform);
 
             return monster;
+        }
+
+        // Создать спавнер
+        public void CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterTypeId)
+        {
+            EnemySpawner spawner = InstantiateRegistered(AssetPath.Spawner, at)
+                .GetComponent<EnemySpawner>();
+
+            spawner.Id = spawnerId;
+            spawner.MonsterTypeId = monsterTypeId;
         }
 
         // Зачищать коллекции

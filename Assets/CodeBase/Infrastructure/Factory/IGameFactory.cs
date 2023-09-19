@@ -12,12 +12,12 @@ namespace CodeBase.Infrastructure.Factory
         List<ISavedProgressReader> progressReaders { get; }
         List<ISavedProgress> progressWriters { get; }
 
+        GameObject CreateMonster(MonsterTypeId monsterTypeId, Transform parent);
         GameObject CreateHero(GameObject at);
         GameObject CreateHud();
-
-        void Cleanup();
-        void Register(ISavedProgressReader savedProgress);
-        GameObject CreateMonster(MonsterTypeId monsterTypeId, Transform parent);
         LootPiece CreateLoot();
+
+        void CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterTypeId);
+        void Cleanup();
     }
 }

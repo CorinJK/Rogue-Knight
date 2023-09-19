@@ -14,19 +14,19 @@ namespace CodeBase.Logic
         [SerializeField] private bool _slain;
 
         public MonsterTypeId MonsterTypeId;
+        public string Id;
         private IGameFactory _factory;
         private EnemyDeath _enemyDeath;
-        private string _id;
 
         private void Awake()
         {
-            _id = GetComponent<UniqueId>().Id;
+            Id = GetComponent<UniqueId>().Id;
             _factory = AllServices.Container.Single<IGameFactory>();
         }
 
         public void LoadProgress(PlayerProgress progress)
         {
-            if (progress.KillData.ClearedSpawners.Contains(_id))
+            if (progress.KillData.ClearedSpawners.Contains(Id))
                 _slain = true;
             else
                 Spawn();
@@ -50,7 +50,7 @@ namespace CodeBase.Logic
         public void UpdateProgress(PlayerProgress progress)
         {
             if (_slain)
-                progress.KillData.ClearedSpawners.Add(_id);
+                progress.KillData.ClearedSpawners.Add(Id);
         }
     }
 }
