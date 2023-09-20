@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8624857576530871675}
   - component: {fileID: 8624857576530871676}
-  - component: {fileID: 5052933792222159162}
   m_Layer: 0
-  m_Name: Spawner
-  m_TagString: EmemySpawner
+  m_Name: SpawnPoint
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41,20 +40,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8624857576530871677}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf6dc0fceec366e49a67051c73c7ca76, type: 3}
+  m_Script: {fileID: 11500000, guid: 95b1c32d70a4236478a04a7839cdae71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slain: 0
   MonsterTypeId: 0
---- !u!114 &5052933792222159162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8624857576530871677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cef5c11f317556d40bf12c76cb78130e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Id: _514c305f-0491-44f8-a5ce-6ff458079259
