@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 506803521111436616}
   - component: {fileID: 532531564247320869}
   - component: {fileID: 172862119489996538}
-  - component: {fileID: 8948787230585137998}
+  - component: {fileID: 6774277183844231254}
   m_Layer: 0
   m_Name: BaseEnemy
   m_TagString: Untagged
@@ -202,7 +202,7 @@ MonoBehaviour:
   Health: {fileID: 532531564247320869}
   Animator: {fileID: 1759886331324184333}
   DeathFx: {fileID: 100004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
---- !u!114 &8948787230585137998
+--- !u!114 &6774277183844231254
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1500939411536426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad2f91530803a6b4796dcdac7a064419, type: 3}
+  m_Script: {fileID: 11500000, guid: 636c7c1c4ad600e48a453eec0c0a83e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   HpBar: {fileID: 7831770995510836545}
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 256507439155575643}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb23ab6c6b753c44a221e656e5e2484, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c3990f18ace5e047bb6456945b7dfce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ImageCurrent: {fileID: 1148996218519331290}
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 4833631490848025448}
   - component: {fileID: 2720836802729438786}
   - component: {fileID: 7610292738747891356}
-  - component: {fileID: 8126622954494444629}
+  - component: {fileID: 5407146166496260515}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -357,7 +357,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &8126622954494444629
+--- !u!114 &5407146166496260515
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -366,7 +366,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1544841206765524580}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f2467d7d5b839f41a5ae91fc3d5b40e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f033b8a678e9904ebd9dd522c1a8f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3649107934390906983

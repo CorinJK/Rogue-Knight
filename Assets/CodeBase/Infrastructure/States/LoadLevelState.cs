@@ -3,7 +3,7 @@ using CodeBase.Logic;
 using CodeBase.Infrastructure.Factory;
 using UnityEngine;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.UI;
+using CodeBase.UI.Elements;
 using CodeBase.Hero;
 using UnityEngine.SceneManagement;
 using CodeBase.StaticData;

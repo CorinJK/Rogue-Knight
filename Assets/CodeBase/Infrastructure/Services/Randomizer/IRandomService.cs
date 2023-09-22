@@ -1,6 +1,4 @@
-﻿using CodeBase.Infrastructure.Services;
-
-namespace CodeBase.Infrastructure.Services.Randomizer
+﻿namespace CodeBase.Infrastructure.Services.Randomizer
 {
     public interface IRandomService : IService
     {
