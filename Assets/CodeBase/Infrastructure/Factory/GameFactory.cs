@@ -10,6 +10,7 @@ using CodeBase.UI.Elements;
 using UnityEngine;
 using UnityEngine.AI;
 using Object = UnityEngine.Object;
+using CodeBase.UI.Services.Windows;
 
 namespace CodeBase.Infrastructure.Factory
 {
@@ -19,6 +20,7 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IStaticDataService _staticData;
         private readonly IRandomService _randomService;
         private readonly IPersistentProgressService _progressService;
+        private readonly IWindowService _windowService;
 
         // Два свойства - листы
         public List<ISavedProgressReader> progressReaders { get; } = new List<ISavedProgressReader>();      // Те, кто хочет прочитать
@@ -26,12 +28,13 @@ namespace CodeBase.Infrastructure.Factory
 
         private GameObject HeroGameObject { get; set; }
 
-        public GameFactory(IAssets assets, IStaticDataService staticData, IRandomService randomService, IPersistentProgressService progressService)
+        public GameFactory(IAssets assets, IStaticDataService staticData, IRandomService randomService, IPersistentProgressService progressService, IWindowService windowService)
         {
             _assets = assets;
             _staticData = staticData;
             _randomService = randomService;
             _progressService = progressService;
+            _windowService = windowService;
         }
         
         // Создать лут
@@ -60,7 +63,10 @@ namespace CodeBase.Infrastructure.Factory
             
             hud.GetComponentInChildren<LootCounter>()
                 .Construct(_progressService.Progress.WorldData);
-            
+
+            foreach (OpenWindowButton openWindowButton in hud.GetComponentsInChildren<OpenWindowButton>())
+                openWindowButton.Construct(_windowService);
+
             return hud;
         }
 

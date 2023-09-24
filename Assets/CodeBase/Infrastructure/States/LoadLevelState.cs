@@ -1,19 +1,19 @@
 ﻿using CodeBase.CameraLogic;
-using CodeBase.Logic;
-using CodeBase.Infrastructure.Factory;
-using UnityEngine;
-using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.UI.Elements;
 using CodeBase.Hero;
-using UnityEngine.SceneManagement;
+using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Logic;
 using CodeBase.StaticData;
+using CodeBase.UI.Elements;
+using CodeBase.UI.Services.Factory;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CodeBase.Infrastructure.States
 {
     public class LoadLevelState : IPayloadedState<string>
     {
         private const string InitialPointTag = "InitialPoint";
-        private const string EnemySpawnerTag = "EmemySpawner";
 
         // Зависимости
         private readonly GameStateMachine _stateMachine;
@@ -22,9 +22,11 @@ namespace CodeBase.Infrastructure.States
         private readonly IGameFactory _gameFactory;
         private readonly IPersistentProgressService _progressService;
         private readonly IStaticDataService _staticData;
+        private readonly IUIFactory _uiFactory;
 
         // Конструктор
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory, IPersistentProgressService progressService, IStaticDataService staticData)
+        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, 
+            IGameFactory gameFactory, IPersistentProgressService progressService, IStaticDataService staticData, IUIFactory uiFactory)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
@@ -32,6 +34,7 @@ namespace CodeBase.Infrastructure.States
             _gameFactory = gameFactory;
             _progressService = progressService;
             _staticData = staticData;
+            _uiFactory = uiFactory;
         }
 
         public void Enter(string sceneName)
@@ -47,11 +50,15 @@ namespace CodeBase.Infrastructure.States
         // Загрузка уровня
         private void OnLoaded()
         {
+            InitUIRoot();
             InitGameWorld();
             InformProgressReaders();
 
             _stateMachine.Enter<GameLoopState>();
         }
+
+        private void InitUIRoot() => 
+            _uiFactory.CreateUIRoot();
 
         private void InformProgressReaders()
         {
