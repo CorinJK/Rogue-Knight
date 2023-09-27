@@ -40,5 +40,11 @@ namespace CodeBase.Data
         {
             progress.HeroState.CounterCoins = Counter;
         }
+
+        public void Add(int loot)
+        {
+            Collected += loot;
+            Changed?.Invoke();
+        }
     }
 }
