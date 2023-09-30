@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Object = UnityEngine.Object;
 using CodeBase.UI.Services.Windows;
+using System.Threading.Tasks;
 
 namespace CodeBase.Infrastructure.Factory
 {
@@ -50,9 +51,9 @@ namespace CodeBase.Infrastructure.Factory
         }
 
         // Создать героя
-        public GameObject CreateHero(Vector3 at)
+        public GameObject CreateHero(Vector3 initialPoinPosition)
         {
-            HeroGameObject = InstantiateRegistered(AssetPath.HeroPath, at);  // Берем ссылку
+            HeroGameObject = InstantiateRegistered(AssetPath.HeroPath, at: initialPoinPosition);  // Берем ссылку
             return HeroGameObject;
         }
 
@@ -71,12 +72,17 @@ namespace CodeBase.Infrastructure.Factory
         }
 
         // Создать монстра
-        public GameObject CreateMonster(MonsterTypeId typeId, Transform parent)
+        public async Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parent)
         {
             MonsterStaticData monsterData = _staticData.ForMonster(typeId);
-            GameObject monster = Object.Instantiate(monsterData.Prefab, parent.position, Quaternion.identity, parent);
 
-            var health = monster.GetComponent<IHealth>();
+            GameObject prefab = await monsterData.PrefabReference
+                .LoadAssetAsync()
+                .Task;
+
+            GameObject monster = Object.Instantiate(prefab, parent.position, Quaternion.identity, parent);
+
+            IHealth health = monster.GetComponent<IHealth>();
             health.Current = monsterData.Hp;
             health.Max = monsterData.Hp;
 
@@ -85,11 +91,11 @@ namespace CodeBase.Infrastructure.Factory
             monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
 
             // Подключение лута
-            var lootSpawner = monster.GetComponentInChildren<LootSpawner>();
+            LootSpawner lootSpawner = monster.GetComponentInChildren<LootSpawner>();
             lootSpawner.Construct(this, _randomService);
             lootSpawner.SetLoot(monsterData.MinLoot, monsterData.MaxLoot);
 
-            var attack = monster.GetComponent<Attack>();
+            Attack attack = monster.GetComponent<Attack>();
             attack.Construct(HeroGameObject.transform);
             attack.Damage = monsterData.Damage;
             attack.CLeavage = monsterData.CLeavage;
