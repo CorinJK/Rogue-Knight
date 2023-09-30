@@ -50,9 +50,9 @@ namespace CodeBase.Infrastructure.Factory
         }
 
         // Создать героя
-        public GameObject CreateHero(GameObject at)
+        public GameObject CreateHero(Vector3 at)
         {
-            HeroGameObject = InstantiateRegistered(AssetPath.HeroPath, at.transform.position);  // Берем ссылку
+            HeroGameObject = InstantiateRegistered(AssetPath.HeroPath, at);  // Берем ссылку
             return HeroGameObject;
         }
 

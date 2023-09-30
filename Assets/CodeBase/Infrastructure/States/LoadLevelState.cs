@@ -13,8 +13,6 @@ namespace CodeBase.Infrastructure.States
 {
     public class LoadLevelState : IPayloadedState<string>
     {
-        private const string InitialPointTag = "InitialPoint";
-
         // Зависимости
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
@@ -69,27 +67,19 @@ namespace CodeBase.Infrastructure.States
         // Загружение мира: героя и Hud экрана
         private void InitGameWorld()
         {
-            // Инициировать спавнеры
-            InitSpawners();
+            LevelStaticData levelData = LevelStaticData();
 
-            // Инициировать героя и hud
-            GameObject hero = InitHero();
-            InitHud(hero);
-
-            // Подключить камеру
-            CameraFollow(hero);
+            InitSpawners(levelData);                         // Инициировать спавнеры
+            GameObject hero = InitHero(levelData);           // Инициировать героя
+            InitHud(hero);                                   // Инициировать hud
+            CameraFollow(hero);                              // Подключить камеру
         }
 
-        private void InitSpawners()
+        private void InitSpawners(LevelStaticData levelData)
         {
-            string sceneKey = SceneManager.GetActiveScene().name;       // Берем имя активной сцены
-            LevelStaticData levelData = _staticData.ForLevel(sceneKey);
-
             // Для каждого спавнера
             foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners)
-            {
                 _gameFactory.CreateSpawner(spawnerData.Position, spawnerData.Id, spawnerData.MonsterTypeId);
-            }
         }
 
         private void InitHud(GameObject hero)
@@ -100,8 +90,11 @@ namespace CodeBase.Infrastructure.States
                 .Construct(hero.GetComponent<HeroHealth>());
         }
 
-        private GameObject InitHero() => 
-            _gameFactory.CreateHero(at: GameObject.FindWithTag(InitialPointTag));
+        private GameObject InitHero(LevelStaticData levelData) => 
+            _gameFactory.CreateHero(levelData.InitialHeroPosition);
+
+        private LevelStaticData LevelStaticData() => 
+            _staticData.ForLevel(SceneManager.GetActiveScene().name);   // Берем имя активной сцены
 
         // Слежение камеры
         private static void CameraFollow(GameObject hero)

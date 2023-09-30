@@ -13,7 +13,7 @@ namespace CodeBase.Infrastructure.Factory
         List<ISavedProgress> progressWriters { get; }
 
         GameObject CreateMonster(MonsterTypeId monsterTypeId, Transform parent);
-        GameObject CreateHero(GameObject at);
+        GameObject CreateHero(Vector3 at);
         GameObject CreateHud();
         LootPiece CreateLoot();
 
