@@ -39,6 +39,7 @@ namespace CodeBase.Infrastructure.States
         {
             _curtain.Show();                            // Показать окно загрузки
             _gameFactory.Cleanup();                     // Зачистить коллекции
+            _gameFactory.WarmUp();
             _sceneLoader.Load(sceneName, OnLoaded);     // Загрузить сцену
         }
 

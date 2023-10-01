@@ -12,6 +12,8 @@ using UnityEngine.AI;
 using Object = UnityEngine.Object;
 using CodeBase.UI.Services.Windows;
 using System.Threading.Tasks;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.AddressableAssets;
 
 namespace CodeBase.Infrastructure.Factory
 {
@@ -37,11 +39,18 @@ namespace CodeBase.Infrastructure.Factory
             _progressService = progressService;
             _windowService = windowService;
         }
-        
+
+        // Предварительное прогревание ресурсов
+        public async Task WarmUp()
+        {
+            await _assets.Load<GameObject>(AssetsAddress.Loot);
+            await _assets.Load<GameObject>(AssetsAddress.Spawner);
+        }
+
         // Создать лут
         public LootPiece CreateLoot()
         {
-            LootPiece lootPiece = InstantiateRegistered(AssetPath.Loot)
+            LootPiece lootPiece = InstantiateRegistered(AssetsAddress.Loot)
                 .GetComponent<LootPiece>();
 
             lootPiece.Construct(_progressService.Progress.WorldData);
@@ -53,14 +62,14 @@ namespace CodeBase.Infrastructure.Factory
         // Создать героя
         public GameObject CreateHero(Vector3 initialPoinPosition)
         {
-            HeroGameObject = InstantiateRegistered(AssetPath.HeroPath, at: initialPoinPosition);  // Берем ссылку
+            HeroGameObject = InstantiateRegistered(AssetsAddress.HeroPath, at: initialPoinPosition);  // Берем ссылку
             return HeroGameObject;
         }
 
         // Создать Hud
         public GameObject CreateHud()
         {
-            GameObject hud = InstantiateRegistered(AssetPath.HudPath);
+            GameObject hud = InstantiateRegistered(AssetsAddress.HudPath);
             
             hud.GetComponentInChildren<LootCounter>()
                 .Construct(_progressService.Progress.WorldData);
@@ -76,9 +85,11 @@ namespace CodeBase.Infrastructure.Factory
         {
             MonsterStaticData monsterData = _staticData.ForMonster(typeId);
 
-            GameObject prefab = await monsterData.PrefabReference
-                .LoadAssetAsync()
-                .Task;
+            AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(monsterData.PrefabReference);      // Счётчик ссылок создается 
+
+            GameObject prefab = await handle.Task;
+
+            Addressables.Release(handle);           // Счётчик сссылок уменьшается
 
             GameObject monster = Object.Instantiate(prefab, parent.position, Quaternion.identity, parent);
 
@@ -109,7 +120,7 @@ namespace CodeBase.Infrastructure.Factory
         // Создать спавнер
         public void CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterTypeId)
         {
-            SpawnPoint spawner = InstantiateRegistered(AssetPath.Spawner, at)
+            SpawnPoint spawner = InstantiateRegistered(AssetsAddress.Spawner, at)
                 .GetComponent<SpawnPoint>();
 
             spawner.Construct(this);
@@ -122,6 +133,8 @@ namespace CodeBase.Infrastructure.Factory
         {
             progressReaders.Clear();
             progressWriters.Clear();
+
+            _assets.CleanUp();
         }
 
         // Регистрация
