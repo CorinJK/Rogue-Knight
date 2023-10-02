@@ -39,17 +39,35 @@ MonoBehaviour:
     m_Address: Loot
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 7880382966684822008, guid: d587ba2fd38b20449986c007d26d2b8a,
-      type: 3}
-    m_TargetAsset: {fileID: 7880382966684822008, guid: d587ba2fd38b20449986c007d26d2b8a,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: f56c784930a9c6a4690d638f2017b828
     m_Address: SpawnPoint
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 8624857576530871677, guid: f56c784930a9c6a4690d638f2017b828,
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 181862a89f60d7a459002f9870860ad4
+    m_Address: Hero
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 176288, guid: 181862a89f60d7a459002f9870860ad4, type: 3}
+    m_TargetAsset: {fileID: 176288, guid: 181862a89f60d7a459002f9870860ad4, type: 3}
+  - m_GUID: f6395af14c6ae2d4ea00c7e97e633ad3
+    m_Address: Hud
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 1198110311400335407, guid: f6395af14c6ae2d4ea00c7e97e633ad3,
       type: 3}
-    m_TargetAsset: {fileID: 8624857576530871677, guid: f56c784930a9c6a4690d638f2017b828,
+    m_TargetAsset: {fileID: 1198110311400335407, guid: f6395af14c6ae2d4ea00c7e97e633ad3,
+      type: 3}
+  - m_GUID: d1bf1b795ff56d5448075740541c374c
+    m_Address: UIRoot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 197416182077660920, guid: d1bf1b795ff56d5448075740541c374c,
+      type: 3}
+    m_TargetAsset: {fileID: 197416182077660920, guid: d1bf1b795ff56d5448075740541c374c,
       type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7baae3abcbdfa38409dd01ceee92fbee, type: 2}

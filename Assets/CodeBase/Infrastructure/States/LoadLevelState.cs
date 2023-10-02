@@ -1,4 +1,5 @@
-﻿using CodeBase.CameraLogic;
+﻿using System.Threading.Tasks;
+using CodeBase.CameraLogic;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
@@ -47,17 +48,17 @@ namespace CodeBase.Infrastructure.States
             _curtain.Hide();                            // Исчезание окна загрузки
 
         // Загрузка уровня
-        private void OnLoaded()
+        private async void OnLoaded()
         {
-            InitUIRoot();
-            InitGameWorld();
+            await InitUIRoot();
+            await InitGameWorld();
             InformProgressReaders();
 
             _stateMachine.Enter<GameLoopState>();
         }
 
-        private void InitUIRoot() => 
-            _uiFactory.CreateUIRoot();
+        private async Task InitUIRoot() => 
+            await _uiFactory.CreateUIRoot();
 
         private void InformProgressReaders()
         {
@@ -66,33 +67,33 @@ namespace CodeBase.Infrastructure.States
         }
 
         // Загружение мира: героя и Hud экрана
-        private void InitGameWorld()
+        private async Task InitGameWorld()
         {
             LevelStaticData levelData = LevelStaticData();
 
-            InitSpawners(levelData);                         // Инициировать спавнеры
-            GameObject hero = InitHero(levelData);           // Инициировать героя
-            InitHud(hero);                                   // Инициировать hud
+            await InitSpawners(levelData);                   // Инициировать спавнеры
+            GameObject hero = await InitHero(levelData);     // Инициировать героя
+            await InitHud(hero);                             // Инициировать hud
             CameraFollow(hero);                              // Подключить камеру
         }
 
-        private void InitSpawners(LevelStaticData levelData)
+        private async Task InitSpawners(LevelStaticData levelData)
         {
             // Для каждого спавнера
             foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners)
-                _gameFactory.CreateSpawner(spawnerData.Position, spawnerData.Id, spawnerData.MonsterTypeId);
+                await _gameFactory.CreateSpawner(spawnerData.Position, spawnerData.Id, spawnerData.MonsterTypeId);
         }
 
-        private void InitHud(GameObject hero)
+        private async Task InitHud(GameObject hero)
         {
-            GameObject hud = _gameFactory.CreateHud();
+            GameObject hud = await _gameFactory.CreateHud();
 
             hud.GetComponentInChildren<ActorUI>()
                 .Construct(hero.GetComponent<HeroHealth>());
         }
 
-        private GameObject InitHero(LevelStaticData levelData) => 
-            _gameFactory.CreateHero(levelData.InitialHeroPosition);
+        private async Task<GameObject> InitHero(LevelStaticData levelData) => 
+            await _gameFactory.CreateHero(levelData.InitialHeroPosition);
 
         private LevelStaticData LevelStaticData() => 
             _staticData.ForLevel(SceneManager.GetActiveScene().name);   // Берем имя активной сцены

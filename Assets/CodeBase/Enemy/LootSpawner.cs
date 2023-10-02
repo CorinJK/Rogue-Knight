@@ -27,10 +27,10 @@ namespace CodeBase.Enemy
         }
 
         // Спавп лута
-        private void SpawnLoot()
+        private async void SpawnLoot()
         {
-            LootPiece loot = _factory.CreateLoot();         // Создаем лут в фабрике
-            loot.transform.position = transform.position;    // Перемещаем его под моба
+            LootPiece loot = await _factory.CreateLoot();         // Создаем лут в фабрике
+            loot.transform.position = transform.position;         // Перемещаем его под моба
 
             Loot lootItem = GenerateLoot();
             loot.Initialize(lootItem);

@@ -14,11 +14,11 @@ namespace CodeBase.Infrastructure.Factory
         List<ISavedProgress> progressWriters { get; }
 
         Task<GameObject> CreateMonster(MonsterTypeId monsterTypeId, Transform parent);
-        GameObject CreateHero(Vector3 at);
-        GameObject CreateHud();
-        LootPiece CreateLoot();
+        Task<GameObject> CreateHero(Vector3 at);
+        Task<GameObject> CreateHud();
+        Task<LootPiece> CreateLoot();
 
-        void CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterTypeId);
+        Task CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterTypeId);
         void Cleanup();
         Task WarmUp();
     }
