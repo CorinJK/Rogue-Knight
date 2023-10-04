@@ -1,5 +1,5 @@
-﻿using CodeBase.StaticData.Windows;
-using CodeBase.Infrastructure.Services;
+﻿using CodeBase.Services;
+using CodeBase.StaticData.Windows;
 using CodeBase.UI.Services.Windows;
 
 namespace CodeBase.StaticData

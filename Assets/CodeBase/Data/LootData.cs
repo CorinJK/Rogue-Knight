@@ -1,4 +1,4 @@
-﻿using CodeBase.Infrastructure.Services.PersistentProgress;
+﻿using CodeBase.Services.PersistentProgress;
 using System;
 
 namespace CodeBase.Data

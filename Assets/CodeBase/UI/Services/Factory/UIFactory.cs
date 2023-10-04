@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Infrastructure.Services.Ads;
-using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Services.Ads;
+using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData;
 using CodeBase.StaticData.Windows;
 using CodeBase.UI.Services.Windows;

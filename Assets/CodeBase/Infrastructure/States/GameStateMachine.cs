@@ -1,8 +1,8 @@
 ﻿using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services;
-using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Logic;
+using CodeBase.Services;
+using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.SaveLoad;
 using CodeBase.StaticData;
 using CodeBase.UI.Services.Factory;
 using System;

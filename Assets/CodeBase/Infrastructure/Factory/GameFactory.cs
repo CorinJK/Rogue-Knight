@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Infrastructure.Services.Randomizer;
-using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
+using CodeBase.Services.Randomizer;
+using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Elements;

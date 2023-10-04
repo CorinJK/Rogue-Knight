@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using CodeBase.Infrastructure.Services;
+using CodeBase.Services;
 
 namespace CodeBase.UI.Services.Factory
 {

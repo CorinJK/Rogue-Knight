@@ -1,6 +1,6 @@
 ﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services.Randomizer;
+using CodeBase.Services.Randomizer;
 using UnityEngine;
 
 namespace CodeBase.Enemy

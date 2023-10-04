@@ -1,4 +1,4 @@
-﻿using CodeBase.Infrastructure.Services;
+﻿using CodeBase.Services;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;

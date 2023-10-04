@@ -1,5 +1,5 @@
-﻿using CodeBase.Infrastructure.Services.Ads;
-using CodeBase.Infrastructure.Services.PersistentProgress;
+﻿using CodeBase.Services.Ads;
+using CodeBase.Services.PersistentProgress;
 using TMPro;
 
 namespace CodeBase.UI.Windows.Shop
