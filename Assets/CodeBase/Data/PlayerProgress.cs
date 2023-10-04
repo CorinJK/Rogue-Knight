@@ -5,17 +5,11 @@ namespace CodeBase.Data
     [Serializable]
     public class PlayerProgress
     {
-        // Состояние героя
-        public State HeroState;
-
-        // Положение игрока
-        public WorldData WorldData;
-
-        // Статы героя
-        public Stats HeroStats;
-
-        // Очистить спавнеры
-        public KillData KillData;
+        public State HeroState;             // Состояние героя
+        public WorldData WorldData;         // Положение игрока
+        public Stats HeroStats;             // Статы героя
+        public KillData KillData;           // Очистить спавнеры
+        public PurchaseData PurchaseData;   // Количество покупок
 
         public PlayerProgress(string initialLevel)
         {
@@ -23,6 +17,7 @@ namespace CodeBase.Data
             HeroState = new State();
             HeroStats = new Stats();
             KillData = new KillData();
+            PurchaseData = new PurchaseData();
         }
     }
 }
